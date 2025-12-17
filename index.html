@@ -1,94 +1,419 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="lv">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ģeniāla Loģistika - AndeleMandele</title>
+    <title>Andele GO - Prezentācija</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
-        h1 { font-size: 36px; margin-bottom: 20px; color: #333; }
-        h2 { font-size: 28px; margin-top: 40px; margin-bottom: 20px; color: #333; }
-        p { margin-bottom: 15px; color: #666; font-size: 16px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 20px 0; }
-        .card { padding: 20px; background: #f5f5f5; border-radius: 8px; }
-        .card h3 { font-size: 20px; margin-bottom: 10px; color: #333; }
-        .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 20px 0; }
-        .stat { text-align: center; padding: 20px; background: #e3f2fd; border-radius: 8px; }
-        .stat h3 { font-size: 32px; color: #2196F3; margin: 10px 0; }
-        .stat p { color: #555; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            overflow: hidden;
+        }
+
+        .presentation-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        .slide {
+            width: 100%;
+            max-width: 1200px;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border-radius: 20px;
+            padding: 60px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 1px solid #334155;
+            animation: slideIn 0.5s ease-in-out;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #E91E63, #00BCD4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #f1f5f9;
+        }
+
+        h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #cbd5e1;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #cbd5e1;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 24px;
+            color: #94a3b8;
+            font-weight: 300;
+            margin-top: 20px;
+        }
+
+        .code-block {
+            background: #0f172a;
+            border-left: 4px solid #E91E63;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            border-radius: 8px;
+            color: #4ade80;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            padding: 25px;
+            border-radius: 12px;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #E91E63;
+        }
+
+        .card h3 {
+            color: #E91E63;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #94a3b8;
+            font-size: 16px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 30px;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: #E91E63;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #334155;
+        }
+
+        button {
+            background: #E91E63;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        button:hover {
+            background: #C2185B;
+            transform: scale(1.05);
+        }
+
+        button:disabled {
+            background: #475569;
+            cursor: not-allowed;
+            transform: scale(1);
+        }
+
+        .slide-counter {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .tagline {
+            font-size: 22px;
+            font-style: italic;
+            color: #94a3b8;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid #334155;
+        }
+
+        .highlight {
+            color: #E91E63;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 40px 20px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🚀 Ģeniāla Loģistika - Genius Logistics™</h1>
-        
-        <section>
-            <h2>Mūsu Algoritms</h2>
-            <p>Mēs nedarbjojamies kā standarta taksometrs. Sistēma "skenē" apkārtni 24/7 un automātiski atrod optimālos maršrutus.</p>
-            
-            <div class="grid">
-                <div class="card">
-                    <h3>👥 2-4 Klienti</h3>
-                    <p>Viena brauciena laikā tiek apkalpoti 2-4 klienti vienlaicīgi</p>
+    <div class="presentation-container">
+        <div class="slide">
+            <!-- Slide 1: Hero -->
+            <div id="slide-0" class="slide-content">
+                <h1>🚀 Andele GO</h1>
+                <p class="subtitle">Ekskluzīvs piedāvājums Andele Mandele ekosistēmai</p>
+                <p class="subtitle">Apvienojot greznību ar ātrumu</p>
+                <p style="margin-top: 40px; font-size: 20px;">Tikai <span class="highlight">Līvai Jaunozolai</span></p>
+            </div>
+
+            <!-- Slide 2: Problem -->
+            <div id="slide-1" class="slide-content hidden">
+                <h2>Problēma</h2>
+                <p>Andele Mandele ir <span class="highlight">emocionāls pirkums</span>. Bet piegāde ar pakomātu ir emociju bremze.</p>
+                <p style="margin-top: 40px; font-size: 20px; color: #E91E63;">Jūs izveidojāt kopienu, kas mainīja veidu, kā mēs pērkam.</p>
+                <p style="font-size: 20px; color: #00BCD4;">Tagad mēs piedāvājam rīku, kas mainīs veidu, kā mēs saņemam.</p>
+            </div>
+
+            <!-- Slide 3: Solution Overview -->
+            <div id="slide-2" class="slide-content hidden">
+                <h2>Risinājums: Andele GO</h2>
+                <p>Andele GO nav tikai kurjers. Tā ir <span class="highlight">luksusa pieredze par pieejamu cenu</span>.</p>
+                <div class="grid">
+                    <div class="card">
+                        <h3>📍 Draudzīgi Kurjeri</h3>
+                        <p>Pārvaldīti kurjeri ar fotoverifikāciju</p>
+                    </div>
+                    <div class="card">
+                        <h3>💰 Labāka Cena</h3>
+                        <p>4.50€ - pieejama un pelnošā</p>
+                    </div>
+                    <div class="card">
+                        <h3>⚡ Ātrums</h3>
+                        <p>4 minūtes vidēji</p>
+                    </div>
                 </div>
-                <div class="card">
-                    <h3>💰 3x Ienākumi</h3>
-                    <p>Kurjera peļņa pieaug trīskārši, nemainot cenu klientam</p>
+                <p class="tagline">Mēs noņemam "iepakojuma meklēšanas" stresu un "pakomāta gaidīšanas" laiku.</p>
+            </div>
+
+            <!-- Slide 4: How It Works -->
+            <div id="slide-3" class="slide-content hidden">
+                <h2>Kā Tas Darbojas</h2>
+                <p>Mēs <span class="highlight">neesam taksometrs</span>. Mēs esam Loģistikas Tīkls.</p>
+                <div class="code-block">
+> Scanning Route: Centrs → Pārdaugava<br>
+> Found Match 1: Kleita (Ģertrūdes iela)<br>
+> Found Match 2: Kurpes (Čaka iela)<br>
+> Optimizing...<br>
+> Result: 1 Kurjers = 3 Piegādes = 10.50€ Peļņa
                 </div>
-                <div class="card">
-                    <h3>🌱 Ekoloģiski</h3>
-                    <p>Ekoloģiskākais veids, kā pārvietot preces pilsētā</p>
+                <p style="margin-top: 30px;">Mūsu kurjers nebrauc <span class="highlight">tukšs</span>. Sistēma automātiski "paķer" sūtījumus pa ceļam.</p>
+            </div>
+
+            <!-- Slide 5: Unit Economics -->
+            <div id="slide-4" class="slide-content hidden">
+                <h2>Vienības Ekonomika</h2>
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-number">4.50€</div>
+                        <div class="stat-label">Cena Klientam</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">3.50€</div>
+                        <div class="stat-label">Kurjers Saņem</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">0.75€</div>
+                        <div class="stat-label">Platforma</div>
+                    </div>
+                </div>
+                <p style="margin-top: 40px;">Salīdzinājumā ar Bolt Food (2.85€), mēs piedāvājam <span class="highlight">~23% lielākus ienākumus</span> kurjeriem.</p>
+            </div>
+
+            <!-- Slide 6: Scale -->
+            <div id="slide-5" class="slide-content hidden">
+                <h2>Mērogs</h2>
+                <p>Pie 1000 pasūtījumiem dienā (kas ir tikai 5% no Andeles apjoma):</p>
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-number">1000</div>
+                        <div class="stat-label">Pasūtījumi Dienā</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">3500€</div>
+                        <div class="stat-label">Kurjeru Izmaksa</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">750€</div>
+                        <div class="stat-label">Platformas Peļņa</div>
+                    </div>
                 </div>
             </div>
-        </section>
 
-        <section>
-            <h2>📊 Datu Vadīta Izaugsme</h2>
-            <p>Mēs izmantojam Gemini AI un Google Maps datus, lai prognozētu pieprasījumu pirms tas rodas. Ja piektdienas vakarā līst lietus, mēs zinām, ka pieprasījums pēc "Party kleitām" ar piegādi uz mājām pieaugs par 300%.</p>
-            
-            <div class="stats">
-                <div class="stat">
-                    <h3>98%</h3>
-                    <p>Piegādes precizitāte</p>
-                </div>
-                <div class="stat">
-                    <h3>-30%</h3>
-                    <p>Izmaksas pret konkurentiem</p>
-                </div>
-                <div class="stat">
-                    <h3>23%</h3>
-                    <p>Lielāki ienākumi kurjeriem</p>
+            <!-- Slide 7: Partnership -->
+            <div id="slide-6" class="slide-content hidden">
+                <h2>Partnerība</h2>
+                <p style="font-size: 24px; margin-bottom: 40px;">Man ir <span class="highlight">tehnoloģiskais plāns</span>, kurjeru tīkla stratēģija un mārketinga vīzija.</p>
+                <p style="font-size: 24px; color: #00BCD4;">Jums ir <span class="highlight">kopiena</span>. </p>
+                <p style="font-size: 32px; font-weight: 700; margin-top: 40px; color: #E91E63;">Apvienosim spēkus.</p>
+            </div>
+
+            <!-- Slide 8: Closing -->
+            <div id="slide-7" class="slide-content hidden">
+                <h1 style="font-size: 56px; margin-bottom: 40px;">Paldies!</h1>
+                <p style="font-size: 24px; color: #94a3b8;">Andele GO - Ģeniāla Loģistika par Andele Mandeles kopienu</p>
+                <div class="stats" style="margin-top: 60px;">
+                    <div class="stat">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Piegādes Precizitāte</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">-30%</div>
+                        <div class="stat-label">Izmaksas vs Konkurenti</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">23%</div>
+                        <div class="stat-label">Lielāki Ienākumi Kurjeriem</div>
+                    </div>
                 </div>
             </div>
-        </section>
 
-        <section>
-            <h2>💼 Finanšu Ilgtspēja</h2>
-            <p>Atšķirībā no "Gig Economy" milžiem, mēs nepērkam tirgus daļu ar zaudējumiem. Mūsu modelis ir pelnošs no pirmā pasūtījuma pateicoties "Genius Logistics" pakešu apvienošanai.</p>
-        </section>
-
-        <section>
-            <h2>📈 Kurjeru Priekšrocības</h2>
-            <div class="grid">
-                <div class="card">
-                    <h3>Lielāki Ienākumi</h3>
-                    <p>Vidēji 23% lielāki ienākumi nekā konkurentiem</p>
-                </div>
-                <div class="card">
-                    <h3>Vairāk Pasūtījumu</h3>
-                    <p>Optimāls maršrutēšana nodrošina vairāk pasūtījumu dienā</p>
-                </div>
-                <div class="card">
-                    <h3>Mazāk Laika</h3>
-                    <p>Efektīvi maršruti = mazāk laika uz ceļiem</p>
-                </div>
+            <!-- Controls -->
+            <div class="controls">
+                <button id="prev-btn" onclick="previousSlide()">← Atpakaļ</button>
+                <span class="slide-counter"><span id="current-slide">1</span> / 8</span>
+                <button id="next-btn" onclick="nextSlide()">Tālāk →</button>
             </div>
-        </section>
-
-        <hr style="margin: 40px 0; border: none; border-top: 1px solid #ddd;">
-        <p style="text-align: center; color: #999; font-size: 14px;">© 2025 Ģeniāla Loģistika. All rights reserved.</p>
+        </div>
     </div>
+
+    <script>
+        let currentSlide = 0;
+        const totalSlides = 8;
+
+        function showSlide(n) {
+            // Hide all slides
+            for (let i = 0; i < totalSlides; i++) {
+                const slide = document.getElementById(`slide-${i}`);
+                if (slide) slide.classList.add('hidden');
+            }
+
+            // Show current slide
+            const slide = document.getElementById(`slide-${n}`);
+            if (slide) slide.classList.remove('hidden');
+
+            // Update counter
+            document.getElementById('current-slide').textContent = n + 1;
+
+            // Update button states
+            document.getElementById('prev-btn').disabled = n === 0;
+            document.getElementById('next-btn').disabled = n === totalSlides - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') previousSlide();
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
 </body>
 </html>
